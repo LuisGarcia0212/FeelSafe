@@ -1,6 +1,5 @@
-// App.js
 import React from 'react';
-import { Text, StyleSheet, View, Image, KeyboardAvoidingView, Platform, ScrollView, TextInput } from 'react-native';
+import { Text, StyleSheet, View, TextInput, Dimensions, TouchableOpacity, ImageBackground, Image } from 'react-native';
 import { useFonts } from 'expo-font';
 import Boton from '../Componentes/Boton.js'; // Asegúrate de que la ruta sea correcta
 import { useNavigation } from '@react-navigation/native';
@@ -10,193 +9,136 @@ const App = () => {
     Ultra: require("../fonts/Poppins-ExtraBold.ttf"),
   });
 
-  const navigation = useNavigation(); // Usando useNavigation para obtener el objeto de navegación
+  const navigation = useNavigation();
 
   if (!fontsLoaded) return null;
 
   return (
-    <KeyboardAvoidingView
-      style={styles.principal}
-      behavior={Platform.OS === 'ios' ? 'padding' : 'height'}>
-      <ScrollView contentContainerStyle={styles.scrollContainer}>
-        <View style={styles.overlay}>
-          <Image source={require('../Imagenes/mesaTrabajo2.png')} style={styles.fondo} />
-          <Image source={require('../Imagenes/LogoBN.png')} style={styles.fondo2} />
-          <Image source={require('../Imagenes/developers.png')} style={styles.desarrollador} />
+    <ImageBackground source={require('../Imagenes/mesaTrabajo2.png')} style={styles.fondo}>
+      <View style={styles.container}>
+        <Image source={require('../Imagenes/LogoBN.png')} style={styles.logo} />
+
+        <Text style={styles.title}>FEEL SAFE</Text>
+        <Text style={styles.subtitle}>siéntete seguro</Text>
+
+        <View style={styles.inputContainer}>
+          <TextInput placeholder='Ingresa Correo' style={styles.input} />
+          <TextInput placeholder='Ingresa contraseña' style={styles.input} secureTextEntry />
         </View>
 
-        <View style={styles.pesheto}>
-          <View >
-            <View style={styles.cajatexto}>
-              <TextInput placeholder='Ingrese Correo' style={styles.input} />
-            </View>
-            <View style={styles.cajatexto}>
-              <TextInput placeholder='Contraseña' style={styles.input} secureTextEntry />
-            </View>
+        <Boton text="Iniciar Sesión" style={styles.botoningresar} onPress={() => navigation.navigate('Menu')} />
+
+        <View style={styles.socialLoginContainer}>
+          <Text style={styles.socialLoginText}>Iniciar con:</Text>
+          <View style={styles.socialButtons}>
+            <TouchableOpacity style={styles.socialButton}>
+              <Image source={require('../Imagenes/google.png')} style={styles.socialIcon} />
+            </TouchableOpacity>
+            <TouchableOpacity style={styles.socialButton}>
+              <Image source={require('../Imagenes/facebook.png')} style={styles.socialIcon} />
+            </TouchableOpacity>
           </View>
-            <View style={styles.botoningresar}>
-              <Boton text="Inicia Sesión"
-                     style={styles.TextoBoton3}
-                     onPress={() => navigation.navigate('Menu')} />
-            </View>
-
-            <View>
-              <Text style={styles.TextoBoton1}>Contraseña</Text>
-            </View>
-
-            <View>
-              <Text style={styles.TextoBoton2}>Correo</Text>
-            </View>
-          
-            <View>
-              <Text style={styles.Texto1}>Iniciar xd con: </Text>
-            </View>
-            
-            <View>
-              <Text style={styles.Texto2}>¿No tienes cuenta? </Text>
-            </View>
-
-            <View>
-              <Text style={styles.Texto3} onPress={() => navigation.navigate('Registro')} >Registrate </Text>
-            </View>
-
-            <View>
-              <Text style={styles.Texto4}>FEEL SAFE </Text>
-            </View>
-
-            <View>
-              <Text style={styles.Texto5}>Sientete Seguro </Text>
-            </View>
         </View>
-      </ScrollView>
-    </KeyboardAvoidingView>
+
+        <TouchableOpacity onPress={() => navigation.navigate('Registro')}>
+          <Text style={styles.registerText}>¿No tienes cuenta? <Text style={styles.registerLink}>Regístrate</Text></Text>
+        </TouchableOpacity>
+
+        <TouchableOpacity style={styles.socialButton}>
+              <Image source={require('../Imagenes/developers.png')} style={styles.socialIcon} />
+            </TouchableOpacity>
+      </View>
+    </ImageBackground>
   );
 };
 
 const styles = StyleSheet.create({
-  principal: {
-    flex: 1,
-    backgroundColor: 'white',
-  },
-  scrollContainer: {
-    flexGrow: 1,
+  fondo: {
+    width: Dimensions.get('window').width,
+    height: Dimensions.get('window').height,
     justifyContent: 'center',
     alignItems: 'center',
   },
-
-  overlay: {
-    ...StyleSheet.absoluteFillObject,
-    zIndex: 1,
-  },
-  pesheto: {
+  container: {
     flex: 1,
-    zIndex: 4,
-    marginTop:190,
+    justifyContent: 'center',
+    alignItems: 'center',
+    paddingHorizontal: 20,
   },
-  fondo2: {
-    width: 130,
-    height: 130,
-    position: 'absolute',
-    top: 30,
-    left: 165,
-    zIndex:0,
+  logo: {
+    width: 100,
+    height: 100,
+    marginBottom: 20,
   },
-  fondo: {
-    width: 450,
-    height: 1150,
-    position: 'absolute',
-    bottom: 1,
-    zIndex: 0,
+  title: {
+    fontFamily: 'Ultra',
+    fontSize: 36,
+    color: 'black',
+    textAlign: 'center',
   },
-  desarrollador: {
-    width: 50,
-    height: 50,
-    zIndex: 2,
-    position: 'absolute',
-    left: 190,
-    top: 830,
+  subtitle: {
+    fontFamily: 'Ultra',
+    fontSize: 16,
+    color: 'black',
+    marginBottom: 40,
+    textAlign: 'center',
   },
-  
-  cajatexto: {
-    width: 250,
-    paddingVertical: 8,
-    backgroundColor: '#fff',
-    borderRadius: 30,
-    marginVertical: 21,
-    top:210,
+  inputContainer: {
+    width: '100%',
+    marginBottom: 20,
   },
   input: {
+    width: '200', // Usando el 100% para responsividad
     paddingHorizontal: 15,
+    paddingVertical: 10,
+    borderRadius: 25,
+    backgroundColor: '#fff',
+    marginBottom: 15,
+    fontSize: 16,
   },
   botoningresar: {
     backgroundColor: '#000000',
     borderRadius: 30,
-    paddingVertical: 4,
-    width: 210,
-    height:40,
-    top:230,
-    marginVertical: -20,
-    alignSelf: 'center',
+    paddingVertical: 15,
+    paddingHorizontal: 50,
     alignItems: 'center',
+    marginBottom: 20,
   },
-  TextoBoton3: {
-    fontFamily: 'Ultra',
-    color: 'white',
-    paddingVertical: 2,
-    top:3
+  socialLoginContainer: {
+    alignItems: 'center',
+    marginBottom: 20,
   },
-  TextoBoton1: {
-    width: 210,
-    fontFamily: 'Ultra',
+  socialLoginText: {
+    fontSize: 16,
     color: 'black',
-    fontSize: 18,
-    marginTop: 10,
-    bottom:-99,
-    left:15,
-    zIndex:5,
-    right:30
+    marginBottom: 10,
   },
-  TextoBoton2: {
-    fontFamily: 'Ultra',
-    width: 205,
+  socialButtons: {
+    flexDirection: 'row',
+  },
+  socialButton: {
+    marginHorizontal: 10,
+  },
+  socialIcon: {
+    width: 40,
+    height: 40,
+  },
+  registerText: {
+    fontSize: 14,
     color: 'black',
-    fontSize: 18,
-    marginTop: 10,
-    bottom:20,
-    zIndex:6,
-    left:15,
   },
-  Texto1: {
-    bottom:-180,
-    color:'black',
-    left:85,
-    
-  },
-  Texto2: {
-    bottom:-280,
-    left:65,
-    color:'white'
-  },
-  Texto3: {
-    bottom:-310,
-    color:'#00FFFF',
-    left:85,
+  registerLink: {
+    color: '#00FFFF',
     textDecorationLine: 'underline',
   },
-  Texto4: {
-    fontFamily: 'Ultra',
-    fontSize: 41,
-    fontWeight: 'bold',
-    textAlign: 'center',
-    position:'absolute',
-    bottom:140,
-    left:30
+  footer: {
+    marginTop: 30,
+    fontSize: 12,
+    color: 'black',
   },
-  Texto5:{
-    fontSize:10,
-    left:90,
-    bottom:145,
-  }
+  developer: {
+    fontWeight: 'bold',
+  },
 });
 
 export default App;
