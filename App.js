@@ -1,34 +1,34 @@
 import React, { useEffect, useState } from 'react';
 import { StyleSheet, View, TextInput, Button, Alert, TouchableOpacity } from 'react-native';
-
-
-import { createStackNavigator } from '@react-navigation/stack'
-import { NavigationContainer} from '@react-navigation/native'
-import Casa from './Vistas/Casa';
+import { createStackNavigator } from '@react-navigation/stack';
+import { NavigationContainer } from '@react-navigation/native';
+import Mapa from './Vistas/Mapa';
 import Inicio from './Vistas/Inicio';
 import Registrar from './Vistas/Registrar';
 
 export default function App() {
-const Stack = createStackNavigator();
+  const Stack = createStackNavigator();
 
-function MyStack() {
-  return (
-    
-    <Stack.Navigator>
-      <Stack.Screen name="Login" component={Inicio} />
-      <Stack.Screen name="Menu" component={Casa} />
-      <Stack.Screen name="Registro" component={Registrar}/>
-    </Stack.Navigator>
-    
-  );
-}
+  function MyStack() {
+    return (
+      <Stack.Navigator>
+        <Stack.Screen 
+          name="Login" 
+          component={Inicio} 
+          options={{ headerShown: false }} // Oculta el encabezado en la pantalla de inicio de sesión
+        />
+        <Stack.Screen name="Mapa" component={Mapa} />
+        <Stack.Screen name="Registro" component={Registrar} />
+      </Stack.Navigator>
+    );
+  }
 
   return (
     <NavigationContainer>
       <MyStack />
     </NavigationContainer>
   );
-}  
+}
 
 const styles = StyleSheet.create({
   container: {

@@ -26,7 +26,7 @@ const App = () => {
           <TextInput placeholder='Ingresa contraseña' style={styles.input} secureTextEntry />
         </View>
 
-        <Boton text="Iniciar Sesión" style={styles.botoningresar} onPress={() => navigation.navigate('Menu')} />
+        <Boton text="Iniciar Sesión" style={styles.botoningresar} onPress={() => navigation.navigate('Mapa')} />
 
         <View style={styles.socialLoginContainer}>
           <Text style={styles.socialLoginText}>Iniciar con:</Text>
